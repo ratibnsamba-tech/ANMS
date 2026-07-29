@@ -1,0 +1,98 @@
+{% extends 'layout.html' %}
+{% block title %}{{ 'Edit' if issue else 'New' }} Issue{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <h2>{{ 'Edit' if issue else 'New' }} Issue</h2>
+    <form method="post">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Terminal ID</label>
+          <input class="form-control" name="terminal_id" value="{{ issue.terminal_id if issue else '' }}" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Agent Name</label>
+          <input class="form-control" name="agent_name" value="{{ issue.agent_name if issue else '' }}" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Category</label>
+          <select class="form-control" name="categoryname" required>
+            <option value="">Choose category</option>
+            {% for category in categories %}
+            <option value="{{ category.name }}" {% if issue and issue.categoryname == category.name %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Institution</label>
+          <select class="form-control" name="institutionalid" required>
+            <option value="">Choose institution</option>
+            {% for institution in institutions %}
+            <option value="{{ institution.name }}" {% if issue and issue.institutionalid == institution.name %}selected{% endif %}>{{ institution.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Issue Description</label>
+        <textarea class="form-control" name="issuedescription" rows="3" required>{{ issue.issuedescription if issue else '' }}</textarea>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Log Date</label>
+          <input type="datetime-local" class="form-control" name="log_date" value="{{ issue.log_date|datetime('iso') if issue else '' }}">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Last Updated On</label>
+          <input type="datetime-local" class="form-control" name="last_updated_on" value="{{ issue.last_updated_on|datetime('iso') if issue else '' }}" readonly>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Diff in Days</label>
+          <input type="number" class="form-control" name="diff_in_days" value="{{ issue.diff_in_days if issue else '0' }}" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">SLA</label>
+          <input class="form-control" name="sla" value="{{ issue.sla if issue else '' }}" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Status</label>
+          <input class="form-control" name="status" value="{{ issue.status if issue else '' }}" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Status</label>
+          <input class="form-control" name="status" value="{{ issue.status if issue else '' }}" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Location</label>
+          <input class="form-control" name="location" value="{{ issue.location if issue else '' }}" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Created By</label>
+          <input class="form-control" name="createdbyname" value="{{ issue.createdbyname if issue else session.username }}" readonly>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Conformance to SLA</label>
+          <input class="form-control" name="conformance_to_sla" value="{{ issue.conformance_to_sla if issue else '' }}">
+        </div>
+      </div>
+
+      <button class="btn btn-primary">Save Issue</button>
+      <a class="btn btn-secondary" href="/issues">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %}Institutions{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Institutions</h2>
+  <a class="btn btn-primary" href="/institutions/new">Add Institution</a>
+</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for institution in institutions %}
+    <tr>
+      <td>{{ institution.id }}</td>
+      <td>{{ institution.name }}</td>
+      <td>
+        <a class="btn btn-sm btn-secondary" href="/institutions/{{ institution.id }}/edit">Edit</a>
+        <form method="post" action="/institutions/{{ institution.id }}/delete" style="display:inline-block;">
+          <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Delete this institution?');">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="3">No institutions found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

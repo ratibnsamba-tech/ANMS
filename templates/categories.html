@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %}Categories{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Categories</h2>
+  <a class="btn btn-primary" href="/categories/new">Add Category</a>
+</div>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for category in categories %}
+    <tr>
+      <td>{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+      <td>
+        <a class="btn btn-sm btn-secondary" href="/categories/{{ category.id }}/edit">Edit</a>
+        <form method="post" action="/categories/{{ category.id }}/delete" style="display:inline-block;">
+          <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Delete this category?');">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="3">No categories found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

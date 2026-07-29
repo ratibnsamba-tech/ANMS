@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% block title %}Issues{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Issue Tracker</h2>
+  <a class="btn btn-primary" href="/issues/new">Create Issue</a>
+</div>
+<div class="row mb-3">
+  <div class="col-md-10">
+    <form class="row g-2" method="get" action="/issues">
+      <div class="col-md-4">
+        <input type="text" class="form-control" name="ticket_id" placeholder="Filter by ticket" value="{{ ticket_id }}">
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" name="agent_id" placeholder="Filter by agent" value="{{ agent_id }}">
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-outline-secondary" type="submit">Filter</button>
+      </div>
+      <div class="col-auto">
+        <a class="btn btn-secondary" href="/issues">Clear</a>
+      </div>
+    </form>
+  </div>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Ticket</th>
+      <th>Status</th>
+      <th>Category</th>
+      <th>Terminal</th>
+      <th>Agent</th>
+      <th>Logged</th>
+      <th>Last Updated</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for issue in issues %}
+    <tr>
+      <td>{{ issue.issue_ticket_no }}</td>
+      <td>{{ issue.status }}</td>
+      <td>{{ issue.categoryname }}</td>
+      <td>{{ issue.terminal_id }}</td>
+      <td>{{ issue.agent_name }}</td>
+      <td>{{ issue.log_date }}</td>
+      <td>{{ issue.last_updated_on }}</td>
+      <td>
+        <a class="btn btn-sm btn-secondary" href="/issues/{{ issue.issue_ticket_no }}/edit">Edit</a>
+        <form method="post" action="/issues/{{ issue.issue_ticket_no }}/delete" style="display:inline-block;">
+          <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this issue?');">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="8">No issues found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

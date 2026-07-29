@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="row mb-4">
+  <div class="col-12">
+    <h2>Welcome{% if session.username %}, {{ session.username }}{% endif %}</h2>
+  </div>
+</div>
+<div class="row g-4 mb-4">
+  <div class="col-md-3">
+    <div class="card text-white bg-primary h-100">
+      <div class="card-body">
+        <h5 class="card-title">Device Types</h5>
+        <p class="card-text display-6">{{ summary.device_types }}</p>
+        <a class="btn btn-light btn-sm" href="/device-types">View</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-success h-100">
+      <div class="card-body">
+        <h5 class="card-title">Categories</h5>
+        <p class="card-text display-6">{{ summary.categories }}</p>
+        <a class="btn btn-light btn-sm" href="/categories">View</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-warning h-100">
+      <div class="card-body">
+        <h5 class="card-title">Institutions</h5>
+        <p class="card-text display-6">{{ summary.institutions }}</p>
+        <a class="btn btn-light btn-sm" href="/institutions">View</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-danger h-100">
+      <div class="card-body">
+        <h5 class="card-title">Issues</h5>
+        <p class="card-text display-6">{{ summary.issues }}</p>
+        <a class="btn btn-light btn-sm" href="/issues">View</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        Latest Issues
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>Agent</th>
+              <th>Status</th>
+              <th>Category</th>
+              <th>Location</th>
+              <th>Logged</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for issue in latest_issues %}
+            <tr>
+              <td>{{ issue.issue_ticket_no }}</td>
+              <td>{{ issue.agent_name }}</td>
+              <td>{{ issue.status }}</td>
+              <td>{{ issue.categoryname }}</td>
+              <td>{{ issue.location }}</td>
+              <td>{{ issue.log_date }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="6" class="text-center">No recent issues.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
