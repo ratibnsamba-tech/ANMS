@@ -31,6 +31,7 @@
       <th>Category</th>
       <th>Terminal</th>
       <th>Agent</th>
+      <th>Location</th>
       <th>Logged</th>
       <th>Last Updated</th>
       <th>Actions</th>
@@ -44,6 +45,7 @@
       <td>{{ issue.categoryname }}</td>
       <td>{{ issue.terminal_id }}</td>
       <td>{{ issue.agent_name }}</td>
+      <td>{{ issue.location }}</td>
       <td>{{ issue.log_date }}</td>
       <td>{{ issue.last_updated_on }}</td>
       <td>
@@ -55,7 +57,7 @@
     </tr>
     {% else %}
     <tr>
-      <td colspan="8">No issues found.</td>
+      <td colspan="9">No issues found.</td>
     </tr>
     {% endfor %}
   </tbody>
